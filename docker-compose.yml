@@ -13,15 +13,21 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: always
 
-  database:
-    image: mysql
+  mariadb:
+    image: bitnami/mariadb:latest
     networks:
       - my-todo
-    hostname: my-todo-db
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
+    hostname: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MARIADB_USER=todoUser
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_DATABASE=${DB_DATABASE}
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./my-todo-database:/bitnami/mariadb
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -29,7 +35,7 @@ services:
       - my-todo
     environment:
       - VIRTUAL_HOST=my-todo-admin.com
-      - PMA_HOST=my-todo-db
+      - PMA_HOST=mariadb
     restart: always
 
   app:

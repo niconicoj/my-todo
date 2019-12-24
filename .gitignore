@@ -18,3 +18,5 @@ package-lock.json
 package.json
 
 webpack.mix.js
+
+my-todo-database/
