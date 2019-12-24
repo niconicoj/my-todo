@@ -1,0 +1,2 @@
+[submodule "resources/js/my-todo-react"]
+	url = https://github.com/niconicoj/my-todo-react.git
