@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  proxy:
+    image: jwilder/nginx-proxy
+    networks:
+      - my-todo
+    ports:
+      - "8080:80"
+      - "4430:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+
+  database:
+    image: mysql
+    networks:
+      - my-todo
+    hostname: my-todo-db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    networks:
+      - my-todo
+    environment:
+      - VIRTUAL_HOST=my-todo-admin.com
+      - PMA_HOST=my-todo-db
+    restart: always
+
+  app:
+    build:
+      context: ./docker/app-docker
+    networks:
+      my-todo:
+        aliases:
+          - my-todo.com
+    volumes:
+      - .:/var/www/html
+    environment:
+      - VIRTUAL_HOST=my-todo.com
+    restart : always
+
+networks:
+  my-todo:
+    driver: bridge
