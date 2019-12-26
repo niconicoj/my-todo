@@ -13,7 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('/api/user')->group( function() {
-    Route::post('signup','UsersController@signup');
-    Route::post('login','UsersController@login');
+Route::prefix('user')->group( function() {
+    Route::post('signup','UserController@signup');
+    Route::post('login','UserController@login');
+    Route::get('logout','UserController@logout');
+    Route::get('', 'AuthController@getAuthUser');
 });
+
+Route::prefix('todo')->middleware(['middleware' => 'auth:api'])->group( function() {
+    Route::post('','TodoController@create');
+    Route::get('','TodoController@getAll');
+    Route::get('/{id}','TodoController@get');
+});
+
+

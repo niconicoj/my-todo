@@ -20,7 +20,7 @@ class CreateTodosTable extends Migration
             $table->enum('status', ['planned','inProgress','finished'])->default('planned');
             $table->string('title')->nullable(false);
             $table->unsignedBigInteger('elapsed')->default(0);
-            $table->unsignedBigInteger('active');
+            $table->unsignedBigInteger('active')->default(null);
             $table->timestamps();
         });
     }
