@@ -7,7 +7,7 @@ services:
     networks:
       - my-todo
     ports:
-      - "8080:80"
+      - "4000:80"
       - "4430:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro

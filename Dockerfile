@@ -42,3 +42,5 @@ RUN docker-php-ext-install \
 
 # 5. composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+RUN apt-get install npm -y
