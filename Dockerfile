@@ -43,4 +43,6 @@ RUN docker-php-ext-install \
 # 5. composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN apt-get install npm -y
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
+RUN apt-get install -y nodejs
