@@ -20,6 +20,7 @@ RUN apt-get install -y \
 
 # 2. apache configs + document root
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
@@ -47,7 +48,4 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 
 RUN apt-get install -y nodejs
 
-ARG uid
-RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
-RUN mkdir -p /home/devuser/.composer && \
-    chown -R devuser:devuser /home/devuser
+USER www-data
