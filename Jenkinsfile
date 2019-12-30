@@ -38,10 +38,6 @@ npm run build
 
     stage('Serve application') {
       steps {
-        sh '''cd resources/js/my-todo-react
-mv ./build/index.html /var/www/html/resources/views/
-mv ./build/* /var/www/html/public/
-'''
         input(message: 'Application is online', ok: 'proceed', id: 'deliver')
       }
     }
