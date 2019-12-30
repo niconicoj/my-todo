@@ -14,6 +14,8 @@ class ActiveNullable extends Migration
     public function up()
     {
         Schema::table('todos', function (Blueprint $table) {
+            $table->dropColumn('status');
+            $table->string('status',64)->default('planned');
             $table->unsignedBigInteger('active')->nullable(true)->change();
         });
     }

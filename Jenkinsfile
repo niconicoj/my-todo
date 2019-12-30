@@ -26,8 +26,8 @@ pipeline {
           steps {
             sh 'git submodule update --init'
             sh '''
-              cd resources/js/my-todo-react \
-              npm install \
+              cd resources/js/my-todo-react
+              npm install
               npm run build
             '''
           }
