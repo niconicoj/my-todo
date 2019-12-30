@@ -2,7 +2,7 @@ pipeline {
   agent {
     dockerfile {
       filename 'Dockerfile'
-      args '--network docker_default'
+      args '--network docker_default -e VIRTUAL_HOST=mytodo.niconico.io'
     }
 
   }
@@ -38,6 +38,9 @@ npm run build
 
     stage('Serve application') {
       steps {
+        sh '''cd resources/js/my-todo-react
+mv ./build/index.html ${WORKSPACE}/resources/views/
+mv ./build/* ${WORKSPACE}/public/'''
         input(message: 'Application is online', ok: 'proceed', id: 'deliver')
       }
     }
