@@ -47,4 +47,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 
 RUN apt-get install -y nodejs
 
-RUN chown -R www-data:www-data /var/www/html
+ARG uid
+RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
+RUN mkdir -p /home/devuser/.composer && \
+    chown -R devuser:devuser /home/devuser
