@@ -17,7 +17,7 @@ class CreateTodosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
-            $table->enum('status', ['planned','inProgress','finished'])->default('planned');
+            $table->string('status', 64)->default('planned');
             $table->string('title')->nullable(false);
             $table->unsignedBigInteger('elapsed')->default(0);
             $table->unsignedBigInteger('active')->default(null);
