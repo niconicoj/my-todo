@@ -2,6 +2,7 @@ pipeline {
   agent {
     dockerfile {
       filename 'Dockerfile'
+      args '--network docker_default'
     }
 
   }
@@ -24,9 +25,11 @@ pipeline {
         stage('build APP') {
           steps {
             sh 'git submodule update --init'
-            sh 'cd resources/js/my-todo-react'
-            sh 'npm install'
-            sh 'npm run build'
+            sh '''
+              cd resources/js/my-todo-react \
+              npm install \
+              npm run build
+            '''
           }
         }
       }
