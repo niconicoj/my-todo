@@ -2,7 +2,8 @@ pipeline {
   agent {
     dockerfile {
       filename 'Dockerfile'
-      args ' --network=docker_default --network-alias=["myTodo.niconico.io"] -e "VIRTUAL_HOST=mytodo.niconico.io"'
+      additionalBuildArgs '--no-cache'
+      args ' --network=docker_default --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
     }
 
   }
