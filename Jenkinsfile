@@ -17,6 +17,7 @@ pipeline {
                 cp "$myPrivateEnv" .env
               '''
             }
+
             sh 'php artisan key:generate'
             sh 'php artisan migrate'
           }
@@ -25,13 +26,23 @@ pipeline {
         stage('build APP') {
           steps {
             sh 'git submodule update --init'
-            sh '''
-              cd resources/js/my-todo-react
-              npm install
-              npm run build
+            sh '''cd resources/js/my-todo-react
+npm install
+npm run build
             '''
           }
         }
+
+      }
+    }
+
+    stage('Serve application') {
+      steps {
+        sh '''cd resources/js/my-todo-react
+mv ./build/index.html /var/www/html/resources/views/
+mv ./build/* /var/www/html/public/
+'''
+        input(message: 'Application is online', ok: 'proceed', id: 'deliver')
       }
     }
 
