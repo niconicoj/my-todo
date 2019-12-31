@@ -10,7 +10,7 @@ pipeline {
     stage('SETUP') {
       steps {
         sh '''
-          
+          mv ./* /var/www/html/
           mv ./.[!.]* /var/www/html/
         '''
       }
