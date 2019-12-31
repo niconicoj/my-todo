@@ -10,8 +10,8 @@ pipeline {
     stage('SETUP') {
       steps {
         sh '''
-          
-          mv ./*(DN) /var/www/html/
+          setopt -s glob_dots
+          mv ./* /var/www/html/
         '''
       }
     }
