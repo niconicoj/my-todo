@@ -4,16 +4,18 @@ pipeline {
       filename 'Dockerfile'
       args ' --network=docker_default --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
     }
+
   }
   stages {
     stage('SETUP') {
       steps {
         sh '''
-          shopt -s dotglob
-          mv ./* /var/www/html/
+          
+          mv ./*(DN) /var/www/html/
         '''
       }
     }
+
     stage('BUILD') {
       parallel {
         stage('build API') {
@@ -54,6 +56,7 @@ pipeline {
             '''
           }
         }
+
       }
     }
 
