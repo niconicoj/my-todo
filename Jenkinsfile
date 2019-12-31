@@ -2,14 +2,16 @@ pipeline {
   agent {
     dockerfile {
       filename 'Dockerfile'
-      additionalBuildArgs '--no-cache'
       args ' --network=docker_default --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
     }
   }
   stages {
     stage('SETUP') {
       steps {
-        sh 'mv ./* /var/www/html/'
+        sh '''
+          shopt -s dotglob
+          mv ./* /var/www/html/
+        '''
       }
     }
     stage('BUILD') {
