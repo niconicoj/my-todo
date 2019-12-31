@@ -5,15 +5,15 @@ pipeline {
       customWorkspace '/var/www/html'
     }
   }
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-      additionalBuildArgs '--no-cache --build-arg WORKSPACE=$WORKSPACE'
-      args ' --network=docker_default --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
-    }
-  }
   stages {
     stage('BUILD') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+          additionalBuildArgs '--no-cache --build-arg WORKSPACE=$WORKSPACE'
+          args ' --network=docker_default --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
+        }
+      }
       parallel {
         stage('build API') {
           steps {
