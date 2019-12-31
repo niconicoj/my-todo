@@ -12,25 +12,25 @@ pipeline {
       parallel {
         stage('build API') {
           steps {
-            sh 'cd /var/www/html
-composer i'
+            sh '''cd /var/www/html
+composer i'''
             withCredentials(bindings: [file(credentialsId: 'MY_TODO_ENV', variable: 'myPrivateEnv')]) {
               sh '''cd /var/www/html
                 cp "$myPrivateEnv" .env
               '''
             }
 
-            sh 'cd /var/www/html
-php artisan key:generate'
-            sh 'cd /var/www/html
-php artisan migrate'
+            sh '''cd /var/www/html
+php artisan key:generate'''
+            sh '''cd /var/www/html
+php artisan migrate'''
           }
         }
 
         stage('build APP') {
           steps {
-            sh 'cd /var/www/html
-git submodule update --init'
+            sh '''cd /var/www/html
+git submodule update --init'''
             sh '''cd /var/www/html
 cd resources/js/my-todo-react
 npm install
