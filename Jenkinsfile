@@ -65,8 +65,8 @@ pipeline {
         sh '''
           cd /var/www/html
           cd resources/js/my-todo-react
-          mv ./build/index.html ${WORKSPACE}/resources/views/
-          mv ./build/* ${WORKSPACE}/public/
+          mv ./build/index.html /var/www/html/resources/views/
+          mv ./build/* /var/www/html/public/
         '''
         input(message: 'Application is online', ok: 'proceed', id: 'deliver')
       }
