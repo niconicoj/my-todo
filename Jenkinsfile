@@ -22,7 +22,7 @@ pipeline {
           steps {
             sh '''
               cd /var/www/html
-              composer i
+              composer i --no-progress
             '''
             withCredentials(bindings: [file(credentialsId: 'MY_TODO_ENV', variable: 'myPrivateEnv')]) {
               sh '''
