@@ -2,7 +2,7 @@ pipeline {
   agent {
     dockerfile {
       filename 'Dockerfile'
-      args '-u www-data:www-data --network=default_network --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io" -p 8080:80'
+      args '-u www-data:www-data --network=default_network --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io"'
     }
 
   }
