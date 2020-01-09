@@ -1,17 +1,10 @@
 pipeline {
-  agent {
-    docker {
-      image 'php:7.2-apache'
-      args '''--network=default_network
---network-alias=mytodo.niconico.io
--e "VIRTUAL_HOST=mytodo.niconico.io"'''
-    }
-
-  }
+  agent none
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        input 'waiting'
+        sh '''docker build $GIT_COMMIT .
+docker run $GIT_COMMIT --network=default_network --network-alias=mytodo.niconico.io -e "VIRTUAL_HOST=mytodo.niconico.io'''
       }
     }
 
